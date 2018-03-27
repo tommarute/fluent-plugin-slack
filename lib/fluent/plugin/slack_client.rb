@@ -46,6 +46,9 @@ module Fluent
       end
 
       def post(endpoint, params)
+        log.debug "Show params"
+        log.debug p(params)
+
         http = proxy_class.new(endpoint.host, endpoint.port)
         http.use_ssl = (endpoint.scheme == 'https')
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
