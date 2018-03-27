@@ -59,7 +59,7 @@ module Fluent
         log.debug "Deleted attachments in params."
         req.body = encode_body(params)
         log.debug "Show req"
-        log.debug pp(req)
+        log.debug p(req)
         log.debug "set_debug_output"
         req.set_debug_output $stderr
 
