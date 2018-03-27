@@ -65,6 +65,8 @@ module Fluent
         log.debug "Show req"
         log.debug p(req)
 
+        #req.set_form_data({'payload' => params})
+
         res = http.request(req)
         response_check(res, params)
       end
@@ -151,6 +153,7 @@ module Fluent
       private
 
       def encode_body(params = {})
+        log.debug "Call encode_body #1"
         # https://api.slack.com/docs/formatting
         to_json_with_scrub!(params).gsub(/&/, '&amp;').gsub(/</, '&lt;').gsub(/>/, '&gt;')
       end
@@ -189,6 +192,7 @@ module Fluent
       end
 
       def encode_body(params = {})
+        log.debug "Call encode_body #2"
         return params[:text]if params[:text]
         unless params[:attachments]
           raise ArgumentError, 'params[:text] or params[:attachments] is required'
@@ -272,6 +276,7 @@ module Fluent
       private
 
       def encode_body(params = {})
+        log.debug "Call encode_body #3"
         body = params.dup
         if params[:attachments]
           body[:attachments] = to_json_with_scrub!(params[:attachments])
