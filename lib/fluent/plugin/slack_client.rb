@@ -57,6 +57,7 @@ module Fluent
         req['User-Agent'] = 'fluent-plugin-slack'
         params.delete(:attachments)
         req.body = encode_body(params)
+        log.debug p(req)
 
         res = http.request(req)
         response_check(res, params)
