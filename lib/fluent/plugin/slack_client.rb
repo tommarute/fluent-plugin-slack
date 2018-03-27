@@ -56,8 +56,12 @@ module Fluent
         req['Accept'] = 'application/json; charset=utf-8'
         req['User-Agent'] = 'fluent-plugin-slack'
         params.delete(:attachments)
+        log.debug "Deleted attachments in params."
         req.body = encode_body(params)
-        log.debug p(req)
+        log.debug "Show req"
+        log.debug pp(req)
+        log.debug "set_debug_output"
+        req.set_debug_output $stderr
 
         res = http.request(req)
         response_check(res, params)
