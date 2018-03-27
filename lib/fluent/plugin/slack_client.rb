@@ -49,7 +49,7 @@ module Fluent
         http = proxy_class.new(endpoint.host, endpoint.port)
         http.use_ssl = (endpoint.scheme == 'https')
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        http.set_debug_output(debug_dev) if debug_dev
+        http.set_debug_output(debug_dev)# if debug_dev
 
         req = Net::HTTP::Post.new(endpoint.request_uri)
         req['Host'] = endpoint.host
@@ -60,8 +60,6 @@ module Fluent
         req.body = encode_body(params)
         log.debug "Show req"
         log.debug p(req)
-        log.debug "set_debug_output"
-        req.set_debug_output $stderr
 
         res = http.request(req)
         response_check(res, params)
