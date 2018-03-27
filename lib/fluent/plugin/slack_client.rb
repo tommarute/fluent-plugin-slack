@@ -61,11 +61,10 @@ module Fluent
         req['User-Agent'] = 'fluent-plugin-slack'
         params.delete(:attachments)
         log.debug "Deleted attachments in params."
-        req.body = encode_body(params)
+        #req.body = encode_body(params)
+        req.set_form_data({'payload' => encode_body(params)})
         log.debug "Show req"
         log.debug p(req)
-
-        #req.set_form_data({'payload' => params})
 
         res = http.request(req)
         response_check(res, params)
@@ -152,6 +151,7 @@ module Fluent
 
       private
 
+      # NOTE Acutually called
       def encode_body(params = {})
         log.debug "Call encode_body #1"
         # https://api.slack.com/docs/formatting
